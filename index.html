@@ -167,6 +167,12 @@
         .highlight {
             color: #ffa500;
             font-weight: 700;
+            text-decoration: none;
+        }
+
+        .highlight:hover {
+            color: #ff8c00;
+            text-decoration: underline;
         }
 
         .link {
@@ -233,17 +239,17 @@
         <div class="slide active">
             <div class="slide-header">
                 <div class="slide-number">1 / 7</div>
-                <h1 class="slide-title">Overview: Building an MVP with <span class="highlight">Cursor IDE</span></h1>
+                <h1 class="slide-title">Overview: Building an MVP with <a href="https://cursor.sh/" class="link highlight" target="_blank">Cursor IDE</a></h1>
             </div>
             <ul class="bullet-points">
                 <li class="bullet-point">
-                    <div class="bullet-text"><span class="highlight">Cursor IDE</span> is an advanced tool to build MVPs using a structured, AI-powered development process</div>
+                    <div class="bullet-text"><a href="https://cursor.sh/" class="link highlight" target="_blank">Cursor IDE</a> is an advanced AI-powered tool for structured MVP development</div>
                 </li>
                 <li class="bullet-point">
-                    <div class="bullet-text">The workflow involves generating customized rules for your tech stack with <span class="highlight">Cursor Rules GPT</span> to guide the entire MVP build process</div>
+                    <div class="bullet-text">Generate customized rules with <a href="https://chatgpt.com/g/g-0YZwWmLTz-cursor-rules-gpt" class="link highlight" target="_blank">Cursor Rules GPT</a> to guide your build process</div>
                 </li>
                 <li class="bullet-point">
-                    <div class="bullet-text">Build your MVP <span class="highlight">one feature at a time</span>, enabling modular development and seamless feature integration</div>
+                    <div class="bullet-text">Build your MVP <span class="highlight">one feature at a time</span> for modular development</div>
                 </li>
             </ul>
         </div>
@@ -252,17 +258,17 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-number">2 / 7</div>
-                <h1 class="slide-title">Step 0: <span class="highlight">Prerequisites</span> (Initial Setup)</h1>
+                <h1 class="slide-title">Step 0: <a href="https://cursor.sh/" class="link highlight" target="_blank">Prerequisites</a> (Initial Setup)</h1>
             </div>
             <ul class="bullet-points">
                 <li class="bullet-point">
-                    <div class="bullet-text">Sign up for <span class="highlight">Cursor IDE</span> and configure your development environment for optimal performance</div>
+                    <div class="bullet-text">Sign up for <a href="https://cursor.sh/" class="link highlight" target="_blank">Cursor IDE</a> and configure your development environment</div>
                 </li>
                 <li class="bullet-point">
-                    <div class="bullet-text">Create an <span class="highlight">OpenAI account</span> to access GPT tools like Cursor Rules GPT and the Master Prompt functionality</div>
+                    <div class="bullet-text">Download and install <a href="https://cursor.sh/" class="link highlight" target="_blank">Cursor</a> - available for Windows, macOS, and Linux</div>
                 </li>
                 <li class="bullet-point">
-                    <div class="bullet-text">Install <span class="highlight">VS Code</span> if you plan to use the Roo-Code extension for collaborative team-based development</div>
+                    <div class="bullet-text">Alternative: Install <a href="https://code.visualstudio.com/" class="link highlight" target="_blank">VS Code</a> if using Roo-Code extension for team collaboration</div>
                 </li>
             </ul>
         </div>
@@ -271,17 +277,17 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-number">3 / 7</div>
-                <h1 class="slide-title">Step 1: Generate <span class="highlight">Cursor Rules</span> with GPT</h1>
+                <h1 class="slide-title">Step 1: Generate <a href="https://chatgpt.com/g/g-0YZwWmLTz-cursor-rules-gpt" class="link highlight" target="_blank">Cursor Rules</a> with GPT</h1>
             </div>
             <ul class="bullet-points">
                 <li class="bullet-point">
-                    <div class="bullet-text">Access <a href="https://chatgpt.com/g/g-0YZwWmLTz-cursor-rules-gpt" class="link" target="_blank">Cursor Rules GPT</a> from the Explore GPTs section in ChatGPT to generate your custom .cursorrules file</div>
+                    <div class="bullet-text">Access <a href="https://chatgpt.com/g/g-0YZwWmLTz-cursor-rules-gpt" class="link highlight" target="_blank">Cursor Rules GPT</a> to generate your custom .cursorrules file</div>
                 </li>
                 <li class="bullet-point">
-                    <div class="bullet-text">Input your complete <span class="highlight">tech stack</span> (Frontend, Backend, Database, etc.) to receive tailored rules for your specific setup</div>
+                    <div class="bullet-text">Input your <span class="highlight">tech stack</span> (Frontend, Backend, Database) for tailored rules</div>
                 </li>
                 <li class="bullet-point">
-                    <div class="bullet-text"><span class="highlight">Download the .cursorrules file</span> and prepare it for integration within your Cursor IDE workspace</div>
+                    <div class="bullet-text">Download the <span class="highlight">.cursorrules file</span> for Cursor IDE integration</div>
                 </li>
             </ul>
         </div>
@@ -294,13 +300,13 @@
             </div>
             <ul class="bullet-points">
                 <li class="bullet-point">
-                    <div class="bullet-text">Use your <span class="highlight">Master Plan or PRD</span> generated by AI CTO prompt as input to reasoning models like GPT-O3 or Claude</div>
+                    <div class="bullet-text">Use your <span class="highlight">Master Plan/PRD</span> with reasoning models like GPT-O3 or Claude</div>
                 </li>
                 <li class="bullet-point">
-                    <div class="bullet-text">Upload the <span class="highlight">.cursorrules file</span> into Cursor IDE and combine it with your Master Plan for structured development</div>
+                    <div class="bullet-text">Upload <span class="highlight">.cursorrules file</span> into Cursor IDE with your Master Plan</div>
                 </li>
                 <li class="bullet-point">
-                    <div class="bullet-text">Begin building your MVP <span class="highlight">feature by feature</span> using Cursor's agent-based workflows for modular development</div>
+                    <div class="bullet-text">Build MVP <span class="highlight">feature by feature</span> using agent-based workflows</div>
                 </li>
             </ul>
         </div>
@@ -309,17 +315,20 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-number">5 / 7</div>
-                <h1 class="slide-title">Step 3: Build UI with <span class="highlight">Stagewise & Taskmaster</span></h1>
+                <h1 class="slide-title">Step 3: Essential <span class="highlight">Plugins & Extensions</span></h1>
             </div>
             <ul class="bullet-points">
                 <li class="bullet-point">
-                    <div class="bullet-text">Utilize the <span class="highlight">Stagewise plugin</span> within Cursor IDE for intuitive UI building and seamless component editing</div>
+                    <div class="bullet-text"><a href="https://www.stagewise.ai/" class="link highlight" target="_blank">Stagewise</a>: UI building and component editing within Cursor IDE</div>
                 </li>
                 <li class="bullet-point">
-                    <div class="bullet-text">Leverage <span class="highlight">Taskmaster</span> to break down your PRD into manageable tasks and build features incrementally</div>
+                    <div class="bullet-text"><span class="highlight">Taskmaster</span>: Breaks down PRD into manageable tasks for incremental development</div>
                 </li>
                 <li class="bullet-point">
-                    <div class="bullet-text">Execute <span class="highlight">one task at a time</span> approach for systematic feature development and better code organization</div>
+                    <div class="bullet-text"><span class="highlight">IntelliCode Enhancer</span>: AI-powered context-aware code suggestions</div>
+                </li>
+                <li class="bullet-point">
+                    <div class="bullet-text"><span class="highlight">SecureCode Guardian</span>: Real-time vulnerability detection and security alerts</div>
                 </li>
             </ul>
             <div class="slide-links">
@@ -335,17 +344,17 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="slide-number">6 / 7</div>
-                <h1 class="slide-title">Step 4: Collaborate with <span class="highlight">Roo-Code</span> Dev Agents</h1>
+                <h1 class="slide-title">Step 4: Collaborate with <a href="https://roocode.com/" class="link highlight" target="_blank">Roo-Code</a> Dev Agents</h1>
             </div>
             <ul class="bullet-points">
                 <li class="bullet-point">
-                    <div class="bullet-text">Integrate the <span class="highlight">Roo-Code extension</span> in VS Code to access a team of AI developer agents for MVP assistance</div>
+                    <div class="bullet-text">Integrate <a href="https://roocode.com/" class="link highlight" target="_blank">Roo-Code extension</a> in VS Code for AI developer agents</div>
                 </li>
                 <li class="bullet-point">
-                    <div class="bullet-text">These agents help in <span class="highlight">parsing PRDs, coding features</span>, and significantly reducing manual development work</div>
+                    <div class="bullet-text">Agents help with <span class="highlight">PRD parsing</span> and <span class="highlight">feature coding</span></div>
                 </li>
                 <li class="bullet-point">
-                    <div class="bullet-text"><span class="highlight">Note:</span> This extension is specifically designed for VS Code IDE and not compatible with other editors</div>
+                    <div class="bullet-text"><span class="highlight">VS Code only</span> - not compatible with other editors</div>
                 </li>
             </ul>
             <div class="slide-links">
