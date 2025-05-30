@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVP Building Workflow Using Cursor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .carousel-container {
+            width: 100%;
+            max-width: 900px;
+            position: relative;
+        }
+
+        .slide {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 60px 50px;
+            min-height: 500px;
+            display: none;
+            animation: slideIn 0.5s ease-in-out;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .slide-number {
+            background: linear-gradient(135deg, #ff6b6b, #ffa500);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .slide-title {
+            color: #2c3e50;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .bullet-points {
+            list-style: none;
+            padding: 0;
+        }
+
+        .bullet-point {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #ffa500;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .bullet-point:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .bullet-point::before {
+            content: '▶';
+            color: #ffa500;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 15px;
+        }
+
+        .bullet-text {
+            color: #34495e;
+            font-size: 18px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            opacity: 0.9;
+        }
+
+        .nav-button:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-indicators {
+            display: flex;
+            gap: 10px;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: #ffa500;
+            transform: scale(1.2);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .highlight {
+            color: #ffa500;
+            font-weight: 700;
+        }
+
+        .link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .slide-links {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            border-radius: 12px;
+            border-left: 4px solid #007bff;
+        }
+
+        .slide-links h3 {
+            color: #2c3e50;
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .slide-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .slide-links li {
+            margin: 8px 0;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 30px;
+                min-height: 450px;
+            }
+            
+            .slide-title {
+                font-size: 26px;
+            }
+            
+            .bullet-text {
+                font-size: 16px;
+            }
+            
+            .nav-button {
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel-container">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div class="slide-number">1 / 7</div>
+                <h1 class="slide-title">Overview: Building an MVP with <span class="highlight">Cursor IDE</span></h1>
+            </div>
+            <ul class="bullet-points">
+                <li class="bullet-point">
+                    <div class="bullet-text"><span class="highlight">Cursor IDE</span> is an advanced tool to build MVPs using a structured, AI-powered development process</div>
+                </li>
+                <li class="bullet-point">
+                    <div class="bullet-text">The workflow involves generating customized rules for your tech stack with <span class="highlight">Cursor Rules GPT</span> to guide the entire MVP build process</div>
+                </li>
+                <li class="bullet-point">
+                    <div class="bullet-text">Build your MVP <span class="highlight">one feature at a time</span>, enabling modular development and seamless feature integration</div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">2 / 7</div>
+                <h1 class="slide-title">Step 0: <span class="highlight">Prerequisites</span> (Initial Setup)</h1>
+            </div>
+            <ul class="bullet-points">
+                <li class="bullet-point">
+                    <div class="bullet-text">Sign up for <span class="highlight">Cursor IDE</span> and configure your development environment for optimal performance</div>
+                </li>
+                <li class="bullet-point">
+                    <div class="bullet-text">Create an <span class="highlight">OpenAI account</span> to access GPT tools like Cursor Rules GPT and the Master Prompt functionality</div>
+                </li>
+                <li class="bullet-point">
+                    <div class="bullet-text">Install <span class="highlight">VS Code</span> if you plan to use the Roo-Code extension for collaborative team-based development</div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">3 / 7</div>
+                <h1 class="slide-title">Step 1: Generate <span class="highlight">Cursor Rules</span> with GPT</h1>
+            </div>
+            <ul class="bullet-points">
+                <li class="bullet-point">
+                    <div class="bullet-text">Access <a href="https://chatgpt.com/g/g-0YZwWmLTz-cursor-rules-gpt" class="link" target="_blank">Cursor Rules GPT</a> from the Explore GPTs section in ChatGPT to generate your custom .cursorrules file</div>
+                </li>
+                <li class="bullet-point">
+                    <div class="bullet-text">Input your complete <span class="highlight">tech stack</span> (Frontend, Backend, Database, etc.) to receive tailored rules for your specific setup</div>
+                </li>
+                <li class="bullet-point">
+                    <div class="bullet-text"><span class="highlight">Download the .cursorrules file</span> and prepare it for integration within your Cursor IDE workspace</div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">4 / 7</div>
+                <h1 class="slide-title">Step 2: Feed <span class="highlight">Master Plan & Rules</span> into Cursor</h1>
+            </div>
+            <ul class="bullet-points">
+                <li class="bullet-point">
+                    <div class="bullet-text">Use your <span class="highlight">Master Plan or PRD</span> generated by AI CTO prompt as input to reasoning models like GPT-O3 or Claude</div>
+                </li>
+                <li class="bullet-point">
+                    <div class="bullet-text">Upload the <span class="highlight">.cursorrules file</span> into Cursor IDE and combine it with your Master Plan for structured development</div>
+                </li>
+                <li class="bullet-point">
+                    <div class="bullet-text">Begin building your MVP <span class="highlight">feature by feature</span> using Cursor's agent-based workflows for modular development</div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">5 / 7</div>
+                <h1 class="slide-title">Step 3: Build UI with <span class="highlight">Stagewise & Taskmaster</span></h1>
+            </div>
+            <ul class="bullet-points">
+                <li class="bullet-point">
+                    <div class="bullet-text">Utilize the <span class="highlight">Stagewise plugin</span> within Cursor IDE for intuitive UI building and seamless component editing</div>
+                </li>
+                <li class="bullet-point">
+                    <div class="bullet-text">Leverage <span class="highlight">Taskmaster</span> to break down your PRD into manageable tasks and build features incrementally</div>
+                </li>
+                <li class="bullet-point">
+                    <div class="bullet-text">Execute <span class="highlight">one task at a time</span> approach for systematic feature development and better code organization</div>
+                </li>
+            </ul>
+            <div class="slide-links">
+                <h3>📚 Learn More:</h3>
+                <ul>
+                    <li>• <a href="https://www.stagewise.ai/" class="link" target="_blank">Stagewise Official Website</a></li>
+                    <li>• <a href="https://taskmaster.com/" class="link" target="_blank">Taskmaster Plugin Info</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">6 / 7</div>
+                <h1 class="slide-title">Step 4: Collaborate with <span class="highlight">Roo-Code</span> Dev Agents</h1>
+            </div>
+            <ul class="bullet-points">
+                <li class="bullet-point">
+                    <div class="bullet-text">Integrate the <span class="highlight">Roo-Code extension</span> in VS Code to access a team of AI developer agents for MVP assistance</div>
+                </li>
+                <li class="bullet-point">
+                    <div class="bullet-text">These agents help in <span class="highlight">parsing PRDs, coding features</span>, and significantly reducing manual development work</div>
+                </li>
+                <li class="bullet-point">
+                    <div class="bullet-text"><span class="highlight">Note:</span> This extension is specifically designed for VS Code IDE and not compatible with other editors</div>
+                </li>
+            </ul>
+            <div class="slide-links">
+                <h3>📚 Learn More:</h3>
+                <ul>
+                    <li>• <a href="https://roocode.com/" class="link" target="_blank">Roo-Code Official Website</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">7 / 7</div>
+                <h1 class="slide-title"><span class="highlight">Resources</span> to Know More</h1>
+            </div>
+            <ul class="bullet-points">
+                <li class="bullet-point">
+                    <div class="bullet-text"><span class="highlight">Stagewise Plugin Tutorial:</span> <a href="https://youtube.com/watch?v=stagewise-tutorial" class="link" target="_blank">Watch comprehensive video guide on YouTube</a> for UI building mastery</div>
+                </li>
+                <li class="bullet-point">
+                    <div class="bullet-text"><span class="highlight">Taskmaster Plugin Tutorial:</span> <a href="https://youtube.com/watch?v=taskmaster-tutorial" class="link" target="_blank">Watch step-by-step YouTube tutorial</a> for effective PRD parsing and task management</div>
+                </li>
+                <li class="bullet-point">
+                    <div class="bullet-text"><span class="highlight">Roo-Code Tutorial:</span> <a href="https://youtube.com/watch?v=roocode-tutorial" class="link" target="_blank">Watch complete YouTube walkthrough</a> for collaborative development with AI agents</div>
+                </li>
+            </ul>
+            <div class="slide-links">
+                <h3>🔗 Additional Resources:</h3>
+                <ul>
+                    <li>• <a href="https://cursor.sh/" class="link" target="_blank">Cursor IDE Official Website</a></li>
+                    <li>• <a href="https://openai.com/" class="link" target="_blank">OpenAI Platform</a></li>
+                    <li>• <a href="https://code.visualstudio.com/" class="link" target="_blank">VS Code Download</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+            <div class="slide-indicators">
+                <span class="indicator active" onclick="currentSlide(1)"></span>
+                <span class="indicator" onclick="currentSlide(2)"></span>
+                <span class="indicator" onclick="currentSlide(3)"></span>
+                <span class="indicator" onclick="currentSlide(4)"></span>
+                <span class="indicator" onclick="currentSlide(5)"></span>
+                <span class="indicator" onclick="currentSlide(6)"></span>
+                <span class="indicator" onclick="currentSlide(7)"></span>
+            </div>
+            <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 1;
+        const totalSlides = 7;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            const indicators = document.querySelectorAll('.indicator');
+            
+            if (n > totalSlides) currentSlideIndex = 1;
+            if (n < 1) currentSlideIndex = totalSlides;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            
+            slides[currentSlideIndex - 1].classList.add('active');
+            indicators[currentSlideIndex - 1].classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlideIndex === 1;
+            document.getElementById('nextBtn').disabled = currentSlideIndex === totalSlides;
+        }
+
+        function changeSlide(n) {
+            currentSlideIndex += n;
+            showSlide(currentSlideIndex);
+        }
+
+        function currentSlide(n) {
+            currentSlideIndex = n;
+            showSlide(currentSlideIndex);
+        }
+
+        // Initialize
+        showSlide(currentSlideIndex);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+    </script>
+</body>
+</html>
